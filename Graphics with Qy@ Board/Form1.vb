@@ -35,15 +35,20 @@
         MaxAmVLabel.Text = AmpTrackBar.Value
 
         'newY = (Rnd() * maxAmplidue) + (PictureBox1.Height / 2) - (maxAmplidue / 2)
-        'newY = (Rnd() * maxAmplidue) + (gndHieght) '- (maxAmplidue / 2)
-        newY = (Rnd() * maxAmplidue) + gndHieght - (maxAmplidue / 2)
+
+
         newX = timerloop
 
-        'PictureBox1.CreateGraphics.DrawLine(Pens.White, 100, 100, newX, newY)
+        If AnIn1CheckBox.Checked = False Then
+            newY = (Rnd() * maxAmplidue) + gndHieght - (maxAmplidue / 2)
+
+        ElseIf AnIn1CheckBox.Checked = True Then
+            newY = vOut + gndHieght '- (maxAmplidue / 2)
+        End If
         PictureBox1.CreateGraphics.DrawLine(vPens, newX + 1, 0, newX + 1, PictureBox1.Height)
         PictureBox1.CreateGraphics.DrawLine(Pens.White, lastX, lastY, newX, newY)
 
-        'PictureBox1.CreateGraphics.DrawLine(Pens.Blue, 100, 100, timerloop, 200)
+
 
 
 
@@ -85,7 +90,6 @@
 
     Private Sub DefaultButton_Click(sender As Object, e As EventArgs) Handles DefaultButton.Click
         GndTrackBar.Value = 160
-
         AmpTrackBar.Value = 100
     End Sub
 
