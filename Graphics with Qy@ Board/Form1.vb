@@ -40,10 +40,15 @@
         newX = timerloop
 
         If AnIn1CheckBox.Checked = False Then
+
             newY = (Rnd() * maxAmplidue) + gndHieght - (maxAmplidue / 2)
 
         ElseIf AnIn1CheckBox.Checked = True Then
-            newY = vOut + gndHieght '- (maxAmplidue / 2)
+
+            GndTrackBar.Value = 40
+            AmpTrackBar.Value = 75
+            newY = (vOut * maxAmplidue) + gndHieght '- (maxAmplidue / 2)
+
         End If
         PictureBox1.CreateGraphics.DrawLine(vPens, newX + 1, 0, newX + 1, PictureBox1.Height)
         PictureBox1.CreateGraphics.DrawLine(Pens.White, lastX, lastY, newX, newY)
