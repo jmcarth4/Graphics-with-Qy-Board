@@ -26,7 +26,7 @@
     Public vPens As Pen
 
     Sub draw()
-
+        Dim vScale As String
 
         gndHieght = GndTrackBar.Value
         VRefValueLabel.Text = GndTrackBar.Value
@@ -45,10 +45,12 @@
 
         ElseIf AnIn1CheckBox.Checked = True Then
 
-            GndTrackBar.Value = 40
-            AmpTrackBar.Value = 75
-            newY = (vOut * maxAmplidue) + gndHieght '- (maxAmplidue / 2)
+            'GndTrackBar.Value = 40
+            'AmpTrackBar.Value = 75
+            'newY = (vOut * maxAmplidue) + gndHieght '- (maxAmplidue / 2)
 
+            vScale = (vOut / 3.3) * (500 / 1023)
+            newY = (vScale * maxAmplidue) + gndHieght - (maxAmplidue / 2)
         End If
         PictureBox1.CreateGraphics.DrawLine(vPens, newX + 1, 0, newX + 1, PictureBox1.Height)
         PictureBox1.CreateGraphics.DrawLine(Pens.White, lastX, lastY, newX, newY)
@@ -244,6 +246,17 @@
         vPort = n4 * n3
         vOut = Format(vPort, "n")
         dOut = n3
+
+    End Sub
+
+    Private Sub SettingsButton_Click(sender As Object, e As EventArgs) Handles SettingsButton.Click
+        Form2.Show()
+        Try
+            SerialPort1.Close()
+        Catch ex As Exception
+
+        End Try
+
     End Sub
 
 

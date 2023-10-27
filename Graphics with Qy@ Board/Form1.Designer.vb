@@ -36,6 +36,8 @@ Partial Class Form1
         Me.ComPortListBox = New System.Windows.Forms.ListBox()
         Me.ComPortButton = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.TXLabel = New System.Windows.Forms.Label()
+        Me.RXLabel = New System.Windows.Forms.Label()
         Me.MaxAmVLabel = New System.Windows.Forms.Label()
         Me.AmpTrackBar = New System.Windows.Forms.TrackBar()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -45,10 +47,9 @@ Partial Class Form1
         Me.Label1 = New System.Windows.Forms.Label()
         Me.GndTrackBar = New System.Windows.Forms.TrackBar()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.RXLabel = New System.Windows.Forms.Label()
-        Me.TXLabel = New System.Windows.Forms.Label()
         Me.AnIn1CheckBox = New System.Windows.Forms.CheckBox()
         Me.DefaultButton = New System.Windows.Forms.Button()
+        Me.SettingsButton = New System.Windows.Forms.Button()
         Me.AInGroupBox.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         CType(Me.AmpTrackBar, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -167,12 +168,30 @@ Partial Class Form1
         Me.GroupBox1.Controls.Add(Me.ComPortButton)
         Me.GroupBox1.Controls.Add(Me.PortDataListBox)
         Me.GroupBox1.Controls.Add(Me.PortOpenButton)
-        Me.GroupBox1.Location = New System.Drawing.Point(1012, 356)
+        Me.GroupBox1.Location = New System.Drawing.Point(1012, 355)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(318, 234)
         Me.GroupBox1.TabIndex = 218
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "GroupBox1"
+        '
+        'TXLabel
+        '
+        Me.TXLabel.AutoSize = True
+        Me.TXLabel.Location = New System.Drawing.Point(175, 195)
+        Me.TXLabel.Name = "TXLabel"
+        Me.TXLabel.Size = New System.Drawing.Size(29, 20)
+        Me.TXLabel.TabIndex = 213
+        Me.TXLabel.Text = "TX"
+        '
+        'RXLabel
+        '
+        Me.RXLabel.AutoSize = True
+        Me.RXLabel.Location = New System.Drawing.Point(46, 195)
+        Me.RXLabel.Name = "RXLabel"
+        Me.RXLabel.Size = New System.Drawing.Size(32, 20)
+        Me.RXLabel.TabIndex = 212
+        Me.RXLabel.Text = "RX"
         '
         'MaxAmVLabel
         '
@@ -253,24 +272,6 @@ Partial Class Form1
         Me.PictureBox1.TabIndex = 220
         Me.PictureBox1.TabStop = False
         '
-        'RXLabel
-        '
-        Me.RXLabel.AutoSize = True
-        Me.RXLabel.Location = New System.Drawing.Point(46, 195)
-        Me.RXLabel.Name = "RXLabel"
-        Me.RXLabel.Size = New System.Drawing.Size(32, 20)
-        Me.RXLabel.TabIndex = 212
-        Me.RXLabel.Text = "RX"
-        '
-        'TXLabel
-        '
-        Me.TXLabel.AutoSize = True
-        Me.TXLabel.Location = New System.Drawing.Point(175, 195)
-        Me.TXLabel.Name = "TXLabel"
-        Me.TXLabel.Size = New System.Drawing.Size(29, 20)
-        Me.TXLabel.TabIndex = 213
-        Me.TXLabel.Text = "TX"
-        '
         'AnIn1CheckBox
         '
         Me.AnIn1CheckBox.AutoSize = True
@@ -291,11 +292,21 @@ Partial Class Form1
         Me.DefaultButton.Text = "Default"
         Me.DefaultButton.UseVisualStyleBackColor = True
         '
+        'SettingsButton
+        '
+        Me.SettingsButton.Location = New System.Drawing.Point(1064, 311)
+        Me.SettingsButton.Name = "SettingsButton"
+        Me.SettingsButton.Size = New System.Drawing.Size(98, 38)
+        Me.SettingsButton.TabIndex = 231
+        Me.SettingsButton.Text = "Settings"
+        Me.SettingsButton.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1332, 681)
+        Me.Controls.Add(Me.SettingsButton)
         Me.Controls.Add(Me.DefaultButton)
         Me.Controls.Add(Me.AnIn1CheckBox)
         Me.Controls.Add(Me.MaxAmVLabel)
@@ -349,4 +360,5 @@ Partial Class Form1
     Friend WithEvents TXLabel As Label
     Friend WithEvents AnIn1CheckBox As CheckBox
     Friend WithEvents DefaultButton As Button
+    Friend WithEvents SettingsButton As Button
 End Class
