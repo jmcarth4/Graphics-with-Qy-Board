@@ -32,8 +32,6 @@ Partial Class Form1
         Me.QuitButton = New System.Windows.Forms.Button()
         Me.SerialPort1 = New System.IO.Ports.SerialPort(Me.components)
         Me.PortOpenButton = New System.Windows.Forms.Button()
-        Me.ComPortListBox = New System.Windows.Forms.ListBox()
-        Me.ComPortButton = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.TXLabel = New System.Windows.Forms.Label()
         Me.RXLabel = New System.Windows.Forms.Label()
@@ -133,30 +131,12 @@ Partial Class Form1
         Me.PortOpenButton.Text = "Connect"
         Me.PortOpenButton.UseVisualStyleBackColor = True
         '
-        'ComPortListBox
-        '
-        Me.ComPortListBox.FormattingEnabled = True
-        Me.ComPortListBox.ItemHeight = 20
-        Me.ComPortListBox.Location = New System.Drawing.Point(6, 25)
-        Me.ComPortListBox.Name = "ComPortListBox"
-        Me.ComPortListBox.Size = New System.Drawing.Size(109, 64)
-        Me.ComPortListBox.TabIndex = 209
-        '
-        'ComPortButton
-        '
-        Me.ComPortButton.Location = New System.Drawing.Point(6, 110)
-        Me.ComPortButton.Name = "ComPortButton"
-        Me.ComPortButton.Size = New System.Drawing.Size(130, 46)
-        Me.ComPortButton.TabIndex = 208
-        Me.ComPortButton.Text = "Com Port"
-        Me.ComPortButton.UseVisualStyleBackColor = True
-        '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.LoadButton)
         Me.GroupBox1.Controls.Add(Me.TXLabel)
+        Me.GroupBox1.Controls.Add(Me.SettingsButton)
         Me.GroupBox1.Controls.Add(Me.RXLabel)
-        Me.GroupBox1.Controls.Add(Me.ComPortListBox)
-        Me.GroupBox1.Controls.Add(Me.ComPortButton)
         Me.GroupBox1.Controls.Add(Me.PortOpenButton)
         Me.GroupBox1.Location = New System.Drawing.Point(1012, 355)
         Me.GroupBox1.Name = "GroupBox1"
@@ -287,7 +267,7 @@ Partial Class Form1
         '
         'SettingsButton
         '
-        Me.SettingsButton.Location = New System.Drawing.Point(1050, 311)
+        Me.SettingsButton.Location = New System.Drawing.Point(13, 25)
         Me.SettingsButton.Name = "SettingsButton"
         Me.SettingsButton.Size = New System.Drawing.Size(98, 38)
         Me.SettingsButton.TabIndex = 231
@@ -296,7 +276,7 @@ Partial Class Form1
         '
         'LoadButton
         '
-        Me.LoadButton.Location = New System.Drawing.Point(1191, 293)
+        Me.LoadButton.Location = New System.Drawing.Point(27, 89)
         Me.LoadButton.Name = "LoadButton"
         Me.LoadButton.Size = New System.Drawing.Size(103, 56)
         Me.LoadButton.TabIndex = 232
@@ -308,8 +288,6 @@ Partial Class Form1
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1332, 681)
-        Me.Controls.Add(Me.LoadButton)
-        Me.Controls.Add(Me.SettingsButton)
         Me.Controls.Add(Me.DefaultButton)
         Me.Controls.Add(Me.AnIn1CheckBox)
         Me.Controls.Add(Me.MaxAmVLabel)
@@ -346,8 +324,6 @@ Partial Class Form1
     Friend WithEvents QuitButton As Button
     Friend WithEvents SerialPort1 As IO.Ports.SerialPort
     Friend WithEvents PortOpenButton As Button
-    Friend WithEvents ComPortListBox As ListBox
-    Friend WithEvents ComPortButton As Button
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents MaxAmVLabel As Label
     Friend WithEvents AmpTrackBar As TrackBar

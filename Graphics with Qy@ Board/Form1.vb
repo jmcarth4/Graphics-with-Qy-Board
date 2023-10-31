@@ -393,13 +393,6 @@ Public Class Form1
 
 
 
-    'Finds and list all com ports present on the system
-    Private Sub ComPortButton_Click(sender As Object, e As EventArgs) Handles ComPortButton.Click
-        ComPortListBox.Items.Clear()                                    'Clears past com ports
-        For Each sp As String In My.Computer.Ports.SerialPortNames
-            ComPortListBox.Items.Add(sp)                                'Loads all current com ports to list box
-        Next
-    End Sub
 
     'Activates selected comport
     Private Sub PortOpenButton_Click(sender As Object, e As EventArgs) Handles PortOpenButton.Click
@@ -426,21 +419,6 @@ Public Class Form1
     End Sub
 
 
-    Private Sub ComPortList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComPortListBox.SelectedIndexChanged
-        Try
-            SerialPort1.Close()                             'Try to close port before change
-        Catch ex As Exception
-
-        End Try
-
-        PortOpenButton.Text = "Connect"
-        portState = False
-        Try
-            SerialPort1.BaudRate = ComPortListBox.SelectedItem 'See if baud rate data is in the list box
-        Catch ex As Exception
-            SerialPort1.PortName = ComPortListBox.SelectedItem 'Bot baud rate, save port name
-        End Try
-    End Sub
 
 
 
