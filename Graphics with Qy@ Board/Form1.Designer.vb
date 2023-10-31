@@ -31,7 +31,6 @@ Partial Class Form1
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.QuitButton = New System.Windows.Forms.Button()
         Me.SerialPort1 = New System.IO.Ports.SerialPort(Me.components)
-        Me.PortDataListBox = New System.Windows.Forms.ListBox()
         Me.PortOpenButton = New System.Windows.Forms.Button()
         Me.ComPortListBox = New System.Windows.Forms.ListBox()
         Me.ComPortButton = New System.Windows.Forms.Button()
@@ -50,6 +49,7 @@ Partial Class Form1
         Me.AnIn1CheckBox = New System.Windows.Forms.CheckBox()
         Me.DefaultButton = New System.Windows.Forms.Button()
         Me.SettingsButton = New System.Windows.Forms.Button()
+        Me.LoadButton = New System.Windows.Forms.Button()
         Me.AInGroupBox.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         CType(Me.AmpTrackBar, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -124,15 +124,6 @@ Partial Class Form1
         'SerialPort1
         '
         '
-        'PortDataListBox
-        '
-        Me.PortDataListBox.FormattingEnabled = True
-        Me.PortDataListBox.ItemHeight = 20
-        Me.PortDataListBox.Location = New System.Drawing.Point(121, 20)
-        Me.PortDataListBox.Name = "PortDataListBox"
-        Me.PortDataListBox.Size = New System.Drawing.Size(173, 64)
-        Me.PortDataListBox.TabIndex = 211
-        '
         'PortOpenButton
         '
         Me.PortOpenButton.Location = New System.Drawing.Point(142, 111)
@@ -166,7 +157,6 @@ Partial Class Form1
         Me.GroupBox1.Controls.Add(Me.RXLabel)
         Me.GroupBox1.Controls.Add(Me.ComPortListBox)
         Me.GroupBox1.Controls.Add(Me.ComPortButton)
-        Me.GroupBox1.Controls.Add(Me.PortDataListBox)
         Me.GroupBox1.Controls.Add(Me.PortOpenButton)
         Me.GroupBox1.Location = New System.Drawing.Point(1012, 355)
         Me.GroupBox1.Name = "GroupBox1"
@@ -257,11 +247,14 @@ Partial Class Form1
         '
         'GndTrackBar
         '
+        Me.GndTrackBar.AccessibleRole = System.Windows.Forms.AccessibleRole.None
         Me.GndTrackBar.Location = New System.Drawing.Point(639, 547)
         Me.GndTrackBar.Maximum = 500
+        Me.GndTrackBar.Minimum = 177
         Me.GndTrackBar.Name = "GndTrackBar"
         Me.GndTrackBar.Size = New System.Drawing.Size(181, 69)
         Me.GndTrackBar.TabIndex = 221
+        Me.GndTrackBar.Value = 177
         '
         'PictureBox1
         '
@@ -294,18 +287,28 @@ Partial Class Form1
         '
         'SettingsButton
         '
-        Me.SettingsButton.Location = New System.Drawing.Point(1064, 311)
+        Me.SettingsButton.Location = New System.Drawing.Point(1050, 311)
         Me.SettingsButton.Name = "SettingsButton"
         Me.SettingsButton.Size = New System.Drawing.Size(98, 38)
         Me.SettingsButton.TabIndex = 231
         Me.SettingsButton.Text = "Settings"
         Me.SettingsButton.UseVisualStyleBackColor = True
         '
+        'LoadButton
+        '
+        Me.LoadButton.Location = New System.Drawing.Point(1191, 293)
+        Me.LoadButton.Name = "LoadButton"
+        Me.LoadButton.Size = New System.Drawing.Size(103, 56)
+        Me.LoadButton.TabIndex = 232
+        Me.LoadButton.Text = "Load settings"
+        Me.LoadButton.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1332, 681)
+        Me.Controls.Add(Me.LoadButton)
         Me.Controls.Add(Me.SettingsButton)
         Me.Controls.Add(Me.DefaultButton)
         Me.Controls.Add(Me.AnIn1CheckBox)
@@ -342,7 +345,6 @@ Partial Class Form1
     Friend WithEvents Timer1 As Timer
     Friend WithEvents QuitButton As Button
     Friend WithEvents SerialPort1 As IO.Ports.SerialPort
-    Friend WithEvents PortDataListBox As ListBox
     Friend WithEvents PortOpenButton As Button
     Friend WithEvents ComPortListBox As ListBox
     Friend WithEvents ComPortButton As Button
@@ -361,4 +363,5 @@ Partial Class Form1
     Friend WithEvents AnIn1CheckBox As CheckBox
     Friend WithEvents DefaultButton As Button
     Friend WithEvents SettingsButton As Button
+    Friend WithEvents LoadButton As Button
 End Class

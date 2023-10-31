@@ -1,7 +1,16 @@
-﻿Public Class Form1
+﻿'TODO ADD file read
+'ADD baud rate select
+'add ref line
+'delet flashing box----not need...just combo box and connect 
+
+Public Class Form1
     Dim portState As Boolean                    'Enables serial communication
     Dim receiveByte(18) As Byte                 'Receive Data Bytes
     Public TXdata(3) As Byte                    'Byte array to transmit data to Qy@ board
+    Dim fileName As String
+    Dim port As String
+    Dim baud As String
+
     Dim vOut As String                          'Calculated voltage in for analog inputs
     Dim dOut As String                          'Calculated binary in for analog inputs   
     Dim receiveCount, TransmitCount As Double
@@ -12,6 +21,7 @@
     Public maxAmplidue As Integer
     Public lastX As Single
     Public lastY As Single
+    Public lastGnd As Single
     Public timerloop As Integer
     Public width1 As Integer
     Public width2 As Integer
@@ -28,7 +38,7 @@
     Sub draw()
         Dim vScale As String
 
-        gndHieght = GndTrackBar.Value
+        gndHieght = 500 - GndTrackBar.Value
         VRefValueLabel.Text = GndTrackBar.Value
 
         maxAmplidue = AmpTrackBar.Value
@@ -45,20 +55,25 @@
 
         ElseIf AnIn1CheckBox.Checked = True Then
 
-            'GndTrackBar.Value = 40
-            'AmpTrackBar.Value = 75
-            'newY = (vOut * maxAmplidue) + gndHieght '- (maxAmplidue / 2)
+
 
             vScale = (vOut / 3.3) * (500 / 1023)
+            'vScale = (3.3 / vOut) * (1023 / 500)
             newY = (vScale * maxAmplidue) + gndHieght - (maxAmplidue / 2)
         End If
         PictureBox1.CreateGraphics.DrawLine(vPens, newX + 1, 0, newX + 1, PictureBox1.Height)
         PictureBox1.CreateGraphics.DrawLine(Pens.White, lastX, lastY, newX, newY)
+        If gndHieght <> lastGnd Then
+            PictureBox1.CreateGraphics.DrawLine(Pens.Black, 0, lastGnd, PictureBox1.Width, lastGnd)
+
+        End If
+
+
+        PictureBox1.CreateGraphics.DrawLine(Pens.Orange, 0, gndHieght, PictureBox1.Width, gndHieght)
 
 
 
-
-
+        lastGnd = gndHieght
         lastX = newX
         lastY = newY
 
@@ -96,7 +111,7 @@
     End Sub
 
     Private Sub DefaultButton_Click(sender As Object, e As EventArgs) Handles DefaultButton.Click
-        GndTrackBar.Value = 160
+        GndTrackBar.Value = 339
         AmpTrackBar.Value = 100
     End Sub
 
@@ -145,13 +160,15 @@
         If AnIn1CheckBox.Checked = True Then
 
 
-            dataIn = ""
-            PortDataListBox.Items.Clear()
-            PortDataListBox.Items.Add("Com port = " & SerialPort1.PortName)  'Show current baud rate
-            PortDataListBox.Items.Add("Baud Rate = " & SerialPort1.BaudRate) 'Show current baud rate
-            PortDataListBox.Items.Add("Data bits = " & SerialPort1.DataBits)
-            PortDataListBox.Items.Add("Stop bits = " & SerialPort1.StopBits)
-            PortDataListBox.Items.Add("Parity = " & SerialPort1.Parity)
+            'dataIn = ""
+            'PortDataListBox.Items.Clear()
+            'PortDataListBox.Items.Add("Com port = " & SerialPort1.PortName)  'Show current baud rate
+            'PortDataListBox.Items.Add("Baud Rate = " & SerialPort1.BaudRate) 'Show current baud rate
+            'PortDataListBox.Items.Add("Data bits = " & SerialPort1.DataBits)
+            'PortDataListBox.Items.Add("Stop bits = " & SerialPort1.StopBits)
+            'PortDataListBox.Items.Add("Parity = " & SerialPort1.Parity)
+
+
             'Calls functions to talk to the different parts of the Qy@ board when serial communication is present
             If portState = True Then
                 'Transmit and receive data from analog inputs when radio button enabled
@@ -216,12 +233,12 @@
         'Each input is seperatly enabled using radio buttons
         'If AnIn1CheckBox.Checked = True Then
         TXdata(0) = 81                          'Send command for analog in 1
-            TXdata(1) = 0
-            TXdata(2) = 0
-            SendData()
-            AnVoltage()
-            VA1Label.Text = vOut                   'Display input voltage
-            DA1Label.Text = dOut                   'Display recieved binary value
+        TXdata(1) = 0
+        TXdata(2) = 0
+        SendData()
+        AnVoltage()
+        VA1Label.Text = vOut                   'Display input voltage
+        DA1Label.Text = dOut                   'Display recieved binary value
 
         ' End If
 
@@ -259,7 +276,34 @@
 
     End Sub
 
+    Public Sub Load_setting()
+        Try
+            FileOpen(1, fileName, OpenMode.Input)                 'Open file for read
+        Catch ex As Exception
+            MsgBox("Settings file not found, please go to settings menu")
+            Exit Sub
+        End Try
 
+        Input(1, port)
+        Input(1, baud)
+    End Sub
+
+    Private Sub LoadButton_Click(sender As Object, e As EventArgs) Handles LoadButton.Click
+        Load_setting()
+        Try
+            SerialPort1.Close()                             'Try to close port before change
+        Catch ex As Exception
+
+        End Try
+
+        PortOpenButton.Text = "Connect"
+        portState = False
+        Try
+            SerialPort1.BaudRate = baud 'See if baud rate data is in the list box
+        Catch ex As Exception
+            SerialPort1.PortName = port 'Bot baud rate, save port name
+        End Try
+    End Sub
 
     Private Sub QuitButton_Click(sender As Object, e As EventArgs) Handles QuitButton.Click
         Me.Close()
@@ -289,8 +333,9 @@
         width7 = PictureBox1.Width * 0.7
         width8 = PictureBox1.Width * 0.8
         width9 = PictureBox1.Width * 0.9
-        GndTrackBar.Value = 160
-        GndTrackBar.Maximum = PictureBox1.Height
+        GndTrackBar.Value = 339
+
+        'GndTrackBar.Maximum = PictureBox1.Height
         AmpTrackBar.Value = 100
 
     End Sub
@@ -353,6 +398,7 @@
 
     'Activates selected comport
     Private Sub PortOpenButton_Click(sender As Object, e As EventArgs) Handles PortOpenButton.Click
+        'Load_setting()
         If PortOpenButton.Text = "Connect" Then                     'Com port is disconnected. Press button to connect.
             Try
                 SerialPort1.Open()
@@ -391,7 +437,7 @@
         End Try
     End Sub
 
-    'Loads baud rate values into list box
+
 
 
 
