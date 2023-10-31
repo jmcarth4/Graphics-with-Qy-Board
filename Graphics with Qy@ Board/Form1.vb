@@ -8,11 +8,13 @@ Public Class Form1
     Dim receiveByte(18) As Byte                 'Receive Data Bytes
     Public TXdata(3) As Byte                    'Byte array to transmit data to Qy@ board
     Dim fileName As String
+    Dim drivePath As String
     Dim port As String
     Dim baud As String
 
     Dim vOut As String                          'Calculated voltage in for analog inputs
     Dim dOut As String                          'Calculated binary in for analog inputs   
+    Dim vInv As String
     Dim receiveCount, TransmitCount As Double
     Dim newData As Integer                       'Received data
     Dim dataIn1, dataIn2, dataIn3, dataIn4, dataIn5, dataIn6, dataIn7, dataIn8 As Integer
@@ -55,9 +57,10 @@ Public Class Form1
 
         ElseIf AnIn1CheckBox.Checked = True Then
 
+            vInv = 3.3 - vOut
 
 
-            vScale = (vOut / 3.3) * (500 / 1023)
+            vScale = (vInv / 3.3) * (500 / 1023)
             'vScale = (3.3 / vOut) * (1023 / 500)
             newY = (vScale * maxAmplidue) + gndHieght - (maxAmplidue / 2)
         End If
@@ -277,6 +280,8 @@ Public Class Form1
     End Sub
 
     Public Sub Load_setting()
+        drivePath = CurDir()
+        fileName = drivePath & "\ScopeSettings.txt"
         Try
             FileOpen(1, fileName, OpenMode.Input)                 'Open file for read
         Catch ex As Exception
@@ -298,11 +303,11 @@ Public Class Form1
 
         PortOpenButton.Text = "Connect"
         portState = False
-        Try
-            SerialPort1.BaudRate = baud 'See if baud rate data is in the list box
-        Catch ex As Exception
-            SerialPort1.PortName = port 'Bot baud rate, save port name
-        End Try
+        ' Try
+        SerialPort1.BaudRate = baud 'See if baud rate data is in the list box
+        ' Catch ex As Exception
+        SerialPort1.PortName = port 'Bot baud rate, save port name
+        'End Try
     End Sub
 
     Private Sub QuitButton_Click(sender As Object, e As EventArgs) Handles QuitButton.Click

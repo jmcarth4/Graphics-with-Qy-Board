@@ -9,7 +9,7 @@
     Dim fileName As String
     Private Sub Form2_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         drivepath = CurDir()
-        fileName = drivePath & "\ScopeSettings.text"
+        fileName = drivePath & "\ScopeSettings.txt"
 
         BaudRateComboBox.Items.Clear()                          'Clear list box and load baud rate values
         BaudRateComboBox.Items.Add(1200)
